@@ -1,6 +1,6 @@
 const HomePage = () => {
   return (
-    <div className=" grid grid-cols-2 gap-2">
+    <div className=" grid grid-cols-2 gap-2 md:grid-row-2">
       <div className="flex flex-col gap-2">
        <h1 className="mb-2 text-center text-lg font-bold ">¿Que es Kat model?</h1>
       <p className="text-center">Kat model es una aplicación web la cual te ayudará con la edición de fotos de ropa para tu empremdimiento, queremos proveerte de la mejor  herramienta con inteligencia artificial de facil uso </p>

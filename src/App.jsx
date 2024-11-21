@@ -11,7 +11,7 @@ function App() {
     <header className='w-auto'>
     <Navbar/>
     </header>
-    <main className='h-screen m-4'>
+    <main className='flex-grow m-4'>
 
     <Routes>
       <Route path='/' element={<HomePage/>}/>
