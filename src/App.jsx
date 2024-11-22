@@ -6,12 +6,12 @@ function App() {
   
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
     <BrowserRouter>
-    <header className='w-auto'>
+    <header className="bg-brand p-4">
     <Navbar/>
     </header>
-    <main className='flex-grow m-4'>
+    <main className="flex-grow p-4">
 
     <Routes>
       <Route path='/' element={<HomePage/>}/>
@@ -19,7 +19,7 @@ function App() {
     </main>
    <Footer/>
     </BrowserRouter>
-    </>
+    </div>
   )
 }
 
