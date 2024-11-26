@@ -2,6 +2,13 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import HomePage from './page/HomePage'
+import HomeAppPage from './page/HomeAppPage'
+import LoginPage from './page/LoginPage'
+import RegisterPage from './page/RegisterPage'
+import ProfilePage from './page/ProfilePage'
+import GaleryPage from './page/GaleryPage'
+import PageError404 from './page/PageError404'
+
 function App() {
   
 
@@ -15,6 +22,13 @@ function App() {
 
     <Routes>
       <Route path='/' element={<HomePage/>}/>
+      <Route path='*' element={<PageError404/>}/>
+      <Route path='/login' element={<LoginPage/>}/>
+      <Route path='/register' element={<RegisterPage/>}/>
+      <Route path='/inicio' element={<HomeAppPage/>}/>
+      <Route path='/profile' element={<ProfilePage/>}/>
+      <Route path='/galery' element={<GaleryPage/>}/>
+      
     </Routes>
     </main>
    <Footer/>
