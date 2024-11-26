@@ -25,7 +25,7 @@ function App() {
       <Route path='*' element={<PageError404/>}/>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
-      <Route path='/inicio' element={<HomeAppPage/>}/>
+      <Route path='/home' element={<HomeAppPage/>}/>
       <Route path='/profile' element={<ProfilePage/>}/>
       <Route path='/galery' element={<GaleryPage/>}/>
       
