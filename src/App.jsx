@@ -18,7 +18,7 @@ function App() {
     <header className="bg-brand p-4">
     <Navbar/>
     </header>
-    <main className="flex-grow p-4">
+    <main className="flex-grow justify-center ali p-4">
 
     <Routes>
       <Route path='/' element={<HomePage/>}/>
