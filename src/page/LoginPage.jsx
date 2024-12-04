@@ -69,7 +69,7 @@ const LoginPage = () => {
         </div>
         <div
           className="hidden md:block md:w-1/2 bg-cover bg-center"
-          style={{ backgroundImage: `url('/img/image-register.jpg')` }}
+          style={{ backgroundImage: `url('/img/login-1.png')`}}
         >
         </div>
       </div>

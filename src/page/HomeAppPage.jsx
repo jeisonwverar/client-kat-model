@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 const HomeAppPage = () => {
   
   const [images, setImages] = useState([]); // Almacena las imágenes cargadas
-
+  
   const onDrop = (acceptedFiles) => {
     const filesWithPreviews = acceptedFiles.map((file) => ({
       file,
@@ -30,8 +30,9 @@ const HomeAppPage = () => {
   }
 
   return (
-    <form  onSubmit={handleSubmit}>
-        <h2>Subir Imágenes (Arrastra y Suelta)</h2>
+    <div className="flex flex-col m-4 gap-4">
+    <form  onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <h2 className="text-1xl font-bold text-center">Subir Imágen (Arrastra y Suelta) del modelo</h2>
         <div
           {...getRootProps()}
           style={{
@@ -45,6 +46,7 @@ const HomeAppPage = () => {
           <input {...getInputProps()} />
           <p>Arrastra tus imágenes aquí o haz clic para seleccionarlas</p>
         </div>
+        <h2 className="text-1xl font-bold  text-center">Subir Imagen (Arrastra y Suelta) de la prenda</h2>
         <div
           {...getRootProps()}
           style={{
@@ -59,7 +61,7 @@ const HomeAppPage = () => {
           <p>Arrastra tus imágenes aquí o haz clic para seleccionarlas</p>
         </div>
   
-        <div style={{ display: "flex", flexWrap: "wrap", marginTop: "20px" }}>
+        <div className="flex flex-wrap gap-2 justify-center">
           {images.map((image, index) => (
             <div
               key={index}
@@ -73,8 +75,8 @@ const HomeAppPage = () => {
                 src={image.preview}
                 alt={`Preview ${index}`}
                 style={{
-                  width: "150px",
-                  height: "150px",
+                  width: "200px",
+                  height: "200px",
                   objectFit: "cover",
                   borderRadius: "10px",
                   border: "1px solid #ccc",
@@ -102,6 +104,14 @@ const HomeAppPage = () => {
       
   <button className="bg-brand-secondary text-white py-3 px-4 rounded-sm">Enviar</button>
     </form>
+          <div className="flex flex-col justify-center text-center ">
+            <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
+            <div className="flex flex-col border-4 border-blue-300 rounded-md max-w-62">
+              <img src="./img/image-home-1.jpg" alt="prueba"  className="h-auto  rounded-lg"/>
+              <button className="bg-blue-300 text-white py-3 px-4 rounded-sm hover:bg-blue-500">guardar</button>
+            </div>
+          </div>
+    </div>
       );
 }
 
