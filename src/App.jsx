@@ -8,9 +8,17 @@ import RegisterPage from './page/RegisterPage'
 import ProfilePage from './page/ProfilePage'
 import GaleryPage from './page/GaleryPage'
 import PageError404 from './page/PageError404'
-
+import  useStore  from './context/UseStore'
+import UnauthorizedPage from './page/UnauthorizedPage'
+import PrivateRoute from './protected/PrivateRoute'
+import { useEffect } from 'react'
+import Dashboard from './page/Dashboard'
 function App() {
-  
+  const {validateToken}=useStore();
+
+  useEffect(()=>{
+    validateToken()
+  },[validateToken])
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -23,11 +31,18 @@ function App() {
     <Routes>
       <Route path='/' element={<HomePage/>}/>
       <Route path='*' element={<PageError404/>}/>
+      <Route path='/unauthorized' element={<UnauthorizedPage/>}/>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
-      <Route path='/home' element={<HomeAppPage/>}/>
-      <Route path='/profile' element={<ProfilePage/>}/>
-      <Route path='/galery' element={<GaleryPage/>}/>
+      <Route element={<PrivateRoute allowedRoles={['user','admin']}/>}>
+        <Route path='/home' element={<HomeAppPage/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/galery' element={<GaleryPage/>}/>
+      </Route>
+      <Route element={<PrivateRoute allowedRoles={['admin']}/>}>
+      <Route path='/dashboard' element={<Dashboard/>}/>
+      </Route >
+      
       
     </Routes>
     </main>

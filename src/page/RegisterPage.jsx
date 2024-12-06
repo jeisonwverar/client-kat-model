@@ -1,7 +1,7 @@
 import {useForm} from 'react-hook-form'
 import {useNavigate,Link} from 'react-router-dom'
 import { useEffect } from 'react';
-
+import { registerRequest } from '../api/auth.js';
 const RegisterPage = () => {
   const {register, handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
