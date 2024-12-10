@@ -1,17 +1,28 @@
 import {useForm} from 'react-hook-form'
 import {useNavigate,Link} from 'react-router-dom'
 import { useEffect } from 'react';
-import { registerRequest } from '../api/auth.js';
+import useStore from '../context/UseStore.jsx';
 const RegisterPage = () => {
-  const {register, handleSubmit,formState:{errors}}=useForm();
+  const {singUp,error,loading,user,isAuthenticated} =useStore();
+  const { register,handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
-  const registerError=[];
-  const onSubmit=handleSubmit((values)=>{
-    console.log(values)
+  useEffect(()=>{
+    if(isAuthenticated) navigate('/home');
     
+  },[isAuthenticated])
+  const onSubmit=handleSubmit(async(values)=>{
+    console.log(values)
+    const res = await singUp(
+      values.name,
+      values.email,
+      values.password
+    )
+    console.log(error,loading,user,isAuthenticated)
   })
+  
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
+      
       <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg overflow-hidden w-11/12 md:w-3/4 lg:w-2/3">
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-8">
@@ -22,13 +33,13 @@ const RegisterPage = () => {
               <label className="block text-sm font-semibold mb-2">Nombre</label>
               <input
                 type="text"
-                {...register("nombre", { required: "El nombre es obligatorio" })}
+                {...register("name", { required: "El nombre es obligatorio" })}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none ${
-                  errors.nombre ? "border-red-500" : "border-gray-300"
+                  errors.name ? "border-red-500" : "border-gray-300"
                 }`}
-                placeholder="Nombre"
+                placeholder=""
               />
-              {errors.nombre && <p className="text-red-500 text-sm mt-1">{errors.nombre.message}</p>}
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
             </div>
 
             {/* Correo */}
@@ -36,7 +47,7 @@ const RegisterPage = () => {
               <label className="block text-sm font-semibold mb-2">Correo</label>
               <input
                 type="email"
-                {...register("correo", {
+                {...register("email", {
                   required: "El correo es obligatorio",
                   pattern: {
                     value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
@@ -44,11 +55,11 @@ const RegisterPage = () => {
                   },
                 })}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none ${
-                  errors.correo ? "border-red-500" : "border-gray-300"
+                  errors.email ? "border-red-500" : "border-gray-300"
                 }`}
-                placeholder="Correo"
+                placeholder=""
               />
-              {errors.correo && <p className="text-red-500 text-sm mt-1">{errors.correo.message}</p>}
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
             {/* Contraseña */}
@@ -56,13 +67,13 @@ const RegisterPage = () => {
               <label className="block text-sm font-semibold mb-2">Contraseña</label>
               <input
                 type="password"
-                {...register("contraseña", { required: "La contraseña es obligatoria" })}
+                {...register("password", { required: "La contraseña es obligatoria" })}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none ${
                   errors.contraseña ? "border-red-500" : "border-gray-300"
                 }`}
-                placeholder="Contraseña"
+                placeholder=""
               />
-              {errors.contraseña && <p className="text-red-500 text-sm mt-1">{errors.contraseña.message}</p>}
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
             </div>
 
             {/* Botón de Enviar */}
