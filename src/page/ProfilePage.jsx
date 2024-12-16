@@ -5,13 +5,15 @@ import useStore from "../context/UseStore.jsx";
 const ProfilePage = () => {
   //const [response, setResponse] = useState(null);
   const [profile, setProfile] = useState(null); // Para almacenar los datos del perfil
-  const { isAuthenticated } = useStore();
-
+  const { isAuthenticated, validateSession} = useStore();
+ 
+  
   // Función para obtener el perfil
   const ejecutarPerfil = async () => {
     try {
       if (isAuthenticated) {
         console.log("Usuario autenticado, obteniendo perfil...");
+      
         const data = await getProfileRequest();
         setProfile(data); // Guarda los datos del perfil en el estado
         console.log("Perfil obtenido:", data);
@@ -25,8 +27,9 @@ const ProfilePage = () => {
 
   // Llama a la función de perfil solo si el usuario está autenticado
   useEffect(() => {
-    ejecutarPerfil();
-  }, [isAuthenticated]);
+    ejecutarPerfil()
+    console.log('app principal',isAuthenticated) // Valida la sesión al cargar la aplicación
+  }, []);
 
 
   // Si el usuario no está autenticado, muestra un mensaje o redirige

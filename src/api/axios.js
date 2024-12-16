@@ -4,19 +4,14 @@ const instance = axios.create({
     withCredentials: true, // Esto asegura que las cookies se envíen en cada solicitud (si es necesario)
   });
   
-/*   // Interceptor para incluir el token automáticamente
-  instance.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem('token'); // Obtén el token del almacenamiento local
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`; // Incluye el token en el encabezado
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error); // Maneja errores en la configuración de la solicitud
-    }
-  ); */
+// Interceptor para incluir el token automáticamente
+instance.interceptors.request.use(
+  (config) => {
+    // Aquí no es necesario incluir el token manualmente si lo estás manejando en las cookies
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
   
   // Interceptor para manejar errores de respuesta
  /*  instance.interceptors.response.use(
