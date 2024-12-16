@@ -1,15 +1,25 @@
 import {useForm} from 'react-hook-form'
-import {useNavigate,Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { useEffect } from 'react';
-
+import useStore from '../context/UseStore.jsx';
 const LoginPage = () => {
+  const {login,error,loading,isAuthenticated} =useStore();
   const {register, handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
-  const registerError=[];
+  
+
+
   const onSubmit=handleSubmit((values)=>{
     console.log(values)
+    console.log(error)
+    console.log(isAuthenticated)
+    login( values.email,
+      values.password)
+  
+
     
   })
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg overflow-hidden w-11/12 md:w-3/4 lg:w-2/3">
@@ -24,7 +34,7 @@ const LoginPage = () => {
               <label className="block text-sm font-semibold mb-2">Correo</label>
               <input
                 type="email"
-                {...register("correo", {
+                {...register("email", {
                   required: "El correo es obligatorio",
                   pattern: {
                     value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
@@ -32,11 +42,11 @@ const LoginPage = () => {
                   },
                 })}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none ${
-                  errors.correo ? "border-red-500" : "border-gray-300"
+                  errors.email ? "border-red-500" : "border-gray-300"
                 }`}
-                placeholder="Correo"
+                placeholder="email"
               />
-              {errors.correo && <p className="text-red-500 text-sm mt-1">{errors.correo.message}</p>}
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
             {/* Contraseña */}
@@ -44,13 +54,13 @@ const LoginPage = () => {
               <label className="block text-sm font-semibold mb-2">Contraseña</label>
               <input
                 type="password"
-                {...register("contraseña", { required: "La contraseña es obligatoria" })}
+                {...register("password", { required: "La contraseña es obligatoria" })}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none ${
-                  errors.contraseña ? "border-red-500" : "border-gray-300"
+                  errors.password ? "border-red-500" : "border-gray-300"
                 }`}
-                placeholder="Contraseña"
+                placeholder="password"
               />
-              {errors.contraseña && <p className="text-red-500 text-sm mt-1">{errors.contraseña.message}</p>}
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
             </div>
 
             {/* Botón de Enviar */}
@@ -58,7 +68,7 @@ const LoginPage = () => {
               type="submit"
               className="w-full bg-brand-secondary text-white py-2 px-4 rounded-lg hover:bg-brown-700 transition"
             >
-              Registrarme
+              Ingresar
             </button>
           </form>
 

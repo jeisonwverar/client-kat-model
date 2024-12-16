@@ -13,8 +13,12 @@ const useStore = create((set) => ({
     try {
       set({ loading: true, error: null });
       const response = await loginRequest({ email, password });
-      const decodedToken = jwtDecode(response.data.token);
+      console.log(response)
 
+      localStorage.setItem('token', response.data.token);
+      console.log('token: ',localStorage.getItem('token'))
+      const decodedToken = jwtDecode(response.data.token);
+     
       set({
         user: { email: decodedToken.email, role: decodedToken.role },
         isAuthenticated: true,
@@ -39,7 +43,7 @@ const useStore = create((set) => ({
       });
     } catch (error) {
       set({ user: null, isAuthenticated: false, loading: false, error: error.response?.data?.error|| 'Error al registrar' });
-      console.log(error.response?.data?.error|| 'Error al registrar')
+      console.log(error.response?.data?.error|| error.response?.data?.message||'Error al registrar')
     }
   },
 

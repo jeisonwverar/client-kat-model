@@ -4,15 +4,23 @@ import Loading from "../components/Loading";
 
 const PrivateRoute = ({ allowedRoles }) => {
   const { user, isAuthenticated, loading } = useStore();
+
+  // Mostrar una pantalla de carga si la validación está en progreso
   if (loading) {
     return <Loading />;
   }
+
+  // Redirigir al login si el usuario no está autenticado
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
-  if (allowedRoles && !allowedRoles.includes(user?.role)) {
-    return <Navigate to="/unauthorized" />; // Redirige a una página de "Acceso no autorizado"
+
+  // Verificar roles permitidos
+  if (allowedRoles && (!user || !allowedRoles.includes(user.role))) {
+    return <Navigate to="/unauthorized" />; // Página de acceso denegado
   }
+
+  // Si pasa todas las verificaciones, renderiza el Outlet
   return <Outlet />;
 };
 

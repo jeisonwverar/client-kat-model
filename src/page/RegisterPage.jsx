@@ -1,5 +1,5 @@
 import {useForm} from 'react-hook-form'
-import {useNavigate,Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { useEffect } from 'react';
 import useStore from '../context/UseStore.jsx';
 const RegisterPage = () => {
@@ -12,12 +12,12 @@ const RegisterPage = () => {
   },[isAuthenticated])
   const onSubmit=handleSubmit(async(values)=>{
     console.log(values)
-    const res = await singUp(
+    await singUp(
       values.name,
       values.email,
       values.password
     )
-    console.log(error,loading,user,isAuthenticated)
+    console.log(error,loading,isAuthenticated)
   })
   
   return (

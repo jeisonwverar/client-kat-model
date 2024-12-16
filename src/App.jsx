@@ -8,18 +8,16 @@ import RegisterPage from './page/RegisterPage'
 import ProfilePage from './page/ProfilePage'
 import GaleryPage from './page/GaleryPage'
 import PageError404 from './page/PageError404'
-import  useStore  from './context/UseStore'
 import UnauthorizedPage from './page/UnauthorizedPage'
 import PrivateRoute from './protected/PrivateRoute'
 import { useEffect } from 'react'
+import useStore from './context/UseStore'
 import Dashboard from './page/Dashboard'
 function App() {
-  const {validateToken}=useStore();
+    const { validateToken, loading } = useStore();
+  
 
-  useEffect(()=>{
-    validateToken()
-  },[validateToken])
-
+    
   return (
     <div className="flex flex-col min-h-screen">
     <BrowserRouter>
