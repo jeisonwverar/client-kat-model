@@ -3,15 +3,21 @@ import { useState, useEffect } from "react";
 import useStore from "../context/UseStore.jsx";
 
 const ProfilePage = () => {
-  const [response, setResponse] = useState(null);
+  //const [response, setResponse] = useState(null);
+  const [profile, setProfile] = useState(null); // Para almacenar los datos del perfil
   const { isAuthenticated } = useStore();
 
   // Función para obtener el perfil
   const ejecutarPerfil = async () => {
     try {
-      const data = await getProfileRequest();
-      console.log("Perfil obtenido:", data);
-      setResponse(data);
+      if (isAuthenticated) {
+        console.log("Usuario autenticado, obteniendo perfil...");
+        const data = await getProfileRequest();
+        setProfile(data); // Guarda los datos del perfil en el estado
+        console.log("Perfil obtenido:", data);
+      } else {
+        console.log("Usuario no autenticado.");
+      }
     } catch (error) {
       console.error("Error al obtener el perfil:", error.message);
     }
@@ -19,10 +25,9 @@ const ProfilePage = () => {
 
   // Llama a la función de perfil solo si el usuario está autenticado
   useEffect(() => {
-    if (isAuthenticated) {
-      ejecutarPerfil();
-    }
+    ejecutarPerfil();
   }, [isAuthenticated]);
+
 
   // Si el usuario no está autenticado, muestra un mensaje o redirige
   if (!isAuthenticated) {
@@ -30,7 +35,7 @@ const ProfilePage = () => {
   }
 
   // Muestra un indicador de carga mientras se obtiene el perfil
-  if (!response) {
+  if (!profile) {
     return <p>Cargando perfil...</p>;
   }
 
@@ -39,9 +44,9 @@ const ProfilePage = () => {
       <h1 className="text-center grow w-screen text-3xl font-bold">Perfil</h1>
       <div className="m-10 p-10 flex flex-col gap-2 justify-evenly border-2 border-brand-secondary rounded-md">
         <h2 className="text-xl font-bold">Datos:</h2>
-        <p>user: {response.name}</p>
-        <p>email: {response.email}</p>
-        <p>nickname: {response.nickname}</p>
+        <p>user: {profile.username || "Desconocido"}</p>
+        <p>email: {profile.email || "Desconocido"}</p>
+        <p>nickname: {profile.email || "Desconocido"}</p>
         <button className="text-white bg-brand-secondary hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
           Editar
         </button>

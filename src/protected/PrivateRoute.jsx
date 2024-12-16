@@ -4,7 +4,7 @@ import Loading from "../components/Loading";
 
 const PrivateRoute = ({ allowedRoles }) => {
   const { user, isAuthenticated, loading } = useStore();
-
+ //console.log(user)
   // Mostrar una pantalla de carga si la validación está en progreso
   if (loading) {
     return <Loading />;

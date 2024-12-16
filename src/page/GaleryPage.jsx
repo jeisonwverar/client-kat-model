@@ -1,4 +1,26 @@
+import { useEffect } from 'react'
+import {getAllGaleryRequest} from '../api/galery.js'
+import {isAuthenticated} from '../context/UseStore.jsx';
+
 const GaleryPage = () => {
+
+
+
+    const getGalery=async()=>{
+        try {
+            if(isAuthenticated){
+                const data=await getAllGaleryRequest()
+                console.log(data)
+
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(()=>{
+      getGalery()
+    })
   return (
     <div>
       <div className="flex items-center justify-center py-4 md:py-8 flex-wrap">

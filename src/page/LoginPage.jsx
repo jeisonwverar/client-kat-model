@@ -10,11 +10,9 @@ const LoginPage = () => {
 
 
   const onSubmit=handleSubmit((values)=>{
-    console.log(values)
     console.log(error)
-    console.log(isAuthenticated)
-    login( values.email,
-      values.password)
+    login(values)
+   if(isAuthenticated) navigate('/home')
   
 
     

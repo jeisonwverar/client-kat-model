@@ -4,7 +4,7 @@ const instance = axios.create({
     withCredentials: true, // Esto asegura que las cookies se envíen en cada solicitud (si es necesario)
   });
   
-  // Interceptor para incluir el token automáticamente
+/*   // Interceptor para incluir el token automáticamente
   instance.interceptors.request.use(
     (config) => {
       const token = localStorage.getItem('token'); // Obtén el token del almacenamiento local
@@ -16,10 +16,10 @@ const instance = axios.create({
     (error) => {
       return Promise.reject(error); // Maneja errores en la configuración de la solicitud
     }
-  );
+  ); */
   
   // Interceptor para manejar errores de respuesta
-  instance.interceptors.response.use(
+ /*  instance.interceptors.response.use(
     (response) => response, // Devuelve la respuesta si no hay error
     (error) => {
       if (error.response?.status === 401) {
@@ -30,6 +30,6 @@ const instance = axios.create({
       }
       return Promise.reject(error); // Propaga el error para manejarlo en otros lugares
     }
-  );
+  ); */
   
   export default instance;

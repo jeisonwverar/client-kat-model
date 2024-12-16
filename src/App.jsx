@@ -14,9 +14,14 @@ import { useEffect } from 'react'
 import useStore from './context/UseStore'
 import Dashboard from './page/Dashboard'
 function App() {
-    const { validateToken, loading } = useStore();
-  
+    const { validateSession, isAuthenticated } = useStore();
+   
+    const validate=async()=>await validateSession();
 
+    useEffect(() => {
+      validate()
+      console.log('app principal',isAuthenticated) // Valida la sesión al cargar la aplicación
+    }, [validateSession]);
     
   return (
     <div className="flex flex-col min-h-screen">
