@@ -13,7 +13,7 @@ const useStore = create((set) => ({
     try {
       set({ loading: true, error: null });
       const response = await loginRequest(email, password);
-      console.log('response login',response.data.user)
+      //console.log('response login',response.data.user)
       set({
         user: response.data.user, // La API puede devolver datos adicionales del usuario
         isAuthenticated: true,
