@@ -47,7 +47,7 @@ const useStore = create((set) => ({
     try {
       set({ loading: true, error: null });
       const response = await validateRequest() 
-      console.log(response)
+      //console.log(response)
       set({
         user: response.data.user, // Actualiza el estado con los datos del usuario
         isAuthenticated: true,

@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
-
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import useStore from '../context/UseStore.jsx';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const{user,isAuthenticated,logout} =useStore()
   const toggleMenu = () => setIsOpen(!isOpen);
+
+
+useEffect(()=>{
+
+},[isAuthenticated])
 
   return (
     <nav className=" bg-brand border-gray-200 dark:bg-gray-900">
@@ -42,13 +46,14 @@ const Navbar = () => {
           id="navbar-default"
         >
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-inherit md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md: dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          { isAuthenticated?<>
             <li>
               <Link
                 to="/home"
                 className="block py-2 px-3 text-brand-secondary bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
                 aria-current="page"
               >
-                Inicio
+                inicio
               </Link>
             </li>
             <li>
@@ -58,7 +63,22 @@ const Navbar = () => {
               >
                 galeria
               </Link>
+              
             </li>
+            {user.role==='admin'?(
+            <li>
+
+            <Link
+                to="/dashboard"
+                className="block py-2 px-3 text-brand-secondary rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                dashboard
+              </Link>
+            </li>
+            ):(
+              <></>
+            )
+}
             <li>
               <Link
                 to="/profile"
@@ -67,6 +87,11 @@ const Navbar = () => {
                 perfil
               </Link>
             </li>
+            </>
+            :<></>
+            }
+
+            { !isAuthenticated? <>
             <li>
               <Link
                 to="/login"
@@ -83,10 +108,15 @@ const Navbar = () => {
                 registrarse
               </Link>
             </li>
+            </>
+            :
+            <></>
+}
             <li>
               <Link
                 to="/"
                 className="block text-center rounded-md   w-24 h-6 bg-brand-secondary text-slate-100  hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              onClick={()=>logout()}
               >
                 salir
               </Link>

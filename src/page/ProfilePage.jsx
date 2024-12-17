@@ -12,11 +12,11 @@ const ProfilePage = () => {
   const ejecutarPerfil = async () => {
     try {
       if (isAuthenticated) {
-        console.log("Usuario autenticado, obteniendo perfil...");
+        //console.log("Usuario autenticado, obteniendo perfil...");
       
         const data = await getProfileRequest();
-        setProfile(data); // Guarda los datos del perfil en el estado
-        console.log("Perfil obtenido:", data);
+        setProfile(data.data); // Guarda los datos del perfil en el estado
+       // console.log("Perfil obtenido:", data.data);
       } else {
         console.log("Usuario no autenticado.");
       }
@@ -47,7 +47,7 @@ const ProfilePage = () => {
       <h1 className="text-center grow w-screen text-3xl font-bold">Perfil</h1>
       <div className="m-10 p-10 flex flex-col gap-2 justify-evenly border-2 border-brand-secondary rounded-md">
         <h2 className="text-xl font-bold">Datos:</h2>
-        <p>user: {profile.username || "Desconocido"}</p>
+        <p>user: {profile.name|| "Desconocido"}</p>
         <p>email: {profile.email || "Desconocido"}</p>
         <p>nickname: {profile.email || "Desconocido"}</p>
         <button className="text-white bg-brand-secondary hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">

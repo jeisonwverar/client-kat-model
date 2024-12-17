@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import { useEffect } from 'react';
 import useStore from '../context/UseStore.jsx';
 const RegisterPage = () => {
-  const {singUp,error,loading,user,isAuthenticated} =useStore();
+  const {singUp,error,isAuthenticated} =useStore();
   const { register,handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
   useEffect(()=>{
@@ -11,14 +11,19 @@ const RegisterPage = () => {
     
   },[isAuthenticated])
   const onSubmit=handleSubmit(async(values)=>{
-    console.log(values)
+    //console.log(values)
     await singUp(
       values.name,
       values.email,
       values.password
     )
-    console.log(error,loading,isAuthenticated)
+    console.log(error,isAuthenticated)
   })
+
+  useEffect(()=>{
+    if(isAuthenticated) navigate('/home')
+  },[isAuthenticated])
+
   
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">

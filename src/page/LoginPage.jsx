@@ -3,20 +3,26 @@ import {useNavigate} from 'react-router-dom'
 import { useEffect } from 'react';
 import useStore from '../context/UseStore.jsx';
 const LoginPage = () => {
-  const {login,error,loading,isAuthenticated} =useStore();
+  const {login,error,isAuthenticated} =useStore();
   const {register, handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
   
 
 
   const onSubmit=handleSubmit((values)=>{
-    console.log(error)
-    login(values)
-   if(isAuthenticated) navigate('/home')
-  
+    try {
+      login(values)
+      
+    } catch (e) {
+      console.log({e,error})
+    }
+ 
 
-    
   })
+
+  useEffect(()=>{
+    if(isAuthenticated) navigate('/home')
+  },[isAuthenticated])
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
