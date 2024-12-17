@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import {getAllGaleryRequest} from '../api/galery.js'
-import {isAuthenticated} from '../context/UseStore.jsx';
+import useStore from '../context/UseStore.jsx';
 
 const GaleryPage = () => {
 
@@ -8,7 +8,7 @@ const GaleryPage = () => {
 
     const getGalery=async()=>{
         try {
-            if(isAuthenticated){
+            if(useStore.isAuthenticated){
                 const data=await getAllGaleryRequest()
                 console.log(data)
 

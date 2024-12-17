@@ -13,18 +13,16 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
   
-  // Interceptor para manejar errores de respuesta
- /*  instance.interceptors.response.use(
-    (response) => response, // Devuelve la respuesta si no hay error
-    (error) => {
-      if (error.response?.status === 401) {
-        console.error('Sesión expirada o token inválido.');
-        localStorage.removeItem('token'); // Limpia el token si es inválido
-        // Puedes redirigir al usuario al login si es necesario
-        window.location.href = '/login';
-      }
-      return Promise.reject(error); // Propaga el error para manejarlo en otros lugares
-    }
-  ); */
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('Axios Error:', {
+      status: error.response?.status,
+      data: error.response?.data,
+      headers: error.response?.headers
+    });
+    return Promise.reject(error);
+  }
+);
   
   export default instance;

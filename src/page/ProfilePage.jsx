@@ -29,7 +29,7 @@ const ProfilePage = () => {
   useEffect(() => {
     ejecutarPerfil()
     console.log('app principal',isAuthenticated) // Valida la sesión al cargar la aplicación
-  }, []);
+  }, [validateSession]);
 
 
   // Si el usuario no está autenticado, muestra un mensaje o redirige
