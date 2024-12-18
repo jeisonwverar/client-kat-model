@@ -1,10 +1,11 @@
 import  { useState } from "react";
 import { useDropzone } from "react-dropzone";
-
+import {createTransformerRequest} from '../api/transformer.js'
 const HomeAppPage = () => {
   
   const [images, setImages] = useState([]); // Almacena las imágenes cargadas
-  
+  const [resultUrl, setResultUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
   const onDrop = (acceptedFiles) => {
     const filesWithPreviews = acceptedFiles.map((file) => ({
       file,
@@ -23,10 +24,28 @@ const HomeAppPage = () => {
     setImages(images.filter((_, i) => i !== index)); // Remueve la imagen seleccionada
   };
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault()
-   console.log(e.target)
-   console.log(images)
+    if (images.length < 2) {
+      alert("Debes subir 2 imágenes: modelo y prenda.");
+      return;
+
+      
+    }
+    const personImage = images[0].file;
+    const clothingImage = images[1].file;
+    setLoading(true);
+      try {
+        const response = await createTransformerRequest(personImage, clothingImage);
+      setResultUrl(response.result[0].url);
+      } catch (error) {
+        console.error("Error al procesar las imágenes:", error);
+        alert("Hubo un error al procesar las imágenes.");
+      }
+      finally {
+        setLoading(false);
+      }
+   
   }
 
   return (
@@ -102,15 +121,28 @@ const HomeAppPage = () => {
           ))}
         </div>
       
-  <button className="bg-brand-secondary text-white py-3 px-4 rounded-sm">Enviar</button>
+  <button className="bg-brand-secondary text-white py-3 px-4 rounded-sm"
+  disabled={loading}
+  > {loading ? "Procesando..." : "Enviar"}
+  </button>
     </form>
-          <div className="flex flex-col justify-center text-center ">
-            <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
-            <div className="flex flex-col border-4 border-blue-300 rounded-md max-w-62">
-              <img src="./img/image-home-1.jpg" alt="prueba"  className="h-auto  rounded-lg"/>
-              <button className="bg-blue-300 text-white py-3 px-4 rounded-sm hover:bg-blue-500">guardar</button>
-            </div>
-          </div>
+    {resultUrl&&(
+      <div className="flex flex-col justify-center text-center ">
+      <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
+      <div className="flex flex-col border-4 border-blue-300 rounded-md max-w-62">
+        <img src={resultUrl} alt="Resultado"  className="h-auto  rounded-lg"/>
+        <a
+            href={resultUrl}
+            download="resultado.png"
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          >
+            Descargar Imagen
+          </a>
+        <button className="bg-blue-300 text-white py-3 px-4 rounded-sm hover:bg-blue-500">guardar</button>
+      </div>
+    </div>
+    )}
+          
     </div>
       );
 }
