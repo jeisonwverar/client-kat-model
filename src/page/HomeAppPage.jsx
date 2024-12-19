@@ -6,50 +6,68 @@ const HomeAppPage = () => {
   const [images, setImages] = useState([]); // Almacena las imágenes cargadas
   const [resultUrl, setResultUrl] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorType, setError] = useState('');
   const onDrop = (acceptedFiles) => {
     const filesWithPreviews = acceptedFiles.map((file) => ({
       file,
       preview: URL.createObjectURL(file),
     }));
-    setImages((prev) => [...prev, ...filesWithPreviews]); // Agrega las nuevas imágenes
+    setImages((prev) => [...prev, ...filesWithPreviews]);
+    setError(null); // Agrega las nuevas imágenes
   };
 
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*", // Solo permite imágenes
+    accept: {
+      'image/*': []
+    },
+    maxFiles: 2, // Solo permite imágenes
     onDrop,
   });
 
   const removeImage = (index) => {
-    setImages(images.filter((_, i) => i !== index)); // Remueve la imagen seleccionada
+    setImages((prev) => {
+      const newImages = [...prev];
+      URL.revokeObjectURL(newImages[index].preview);
+      newImages.splice(index, 1);
+      return newImages;
+    });
+    setError(null);
   };
 
-  const handleSubmit=async(e)=>{
-    e.preventDefault()
-    if (images.length < 2) {
-      alert("Debes subir 2 imágenes: modelo y prenda.");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (images.length !== 2) {
+      setError("Debes subir 2 imágenes: modelo y prenda.");
       return;
-
-      
     }
-    const personImage = images[0].file;
-    const clothingImage = images[1].file;
+
     setLoading(true);
-      try {
-        const response = await createTransformerRequest(personImage, clothingImage);
-      setResultUrl(response.result[0].url);
-      } catch (error) {
-        console.error("Error al procesar las imágenes:", error);
-        alert("Hubo un error al procesar las imágenes.");
+    setError(null);
+
+    try {
+      const response = await createTransformerRequest(
+        images[0].file,
+        images[1].file
+      );
+      console.log(response)
+      if (response.data.result?.[0]?.url) {
+        setResultUrl(response.data.result[0].url);
+      } else {
+        throw new Error('No se recibió una URL válida del servidor');
       }
-      finally {
-        setLoading(false);
-      }
-   
-  }
+    } catch (error) {
+      console.log("Error al procesar las imágenes:", error);
+      setError(error || "Error al procesar las imágenes");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col m-4 gap-4">
+      <div>{}</div>
     <form  onSubmit={handleSubmit} className="flex flex-col gap-2">
         <h2 className="text-1xl font-bold text-center">Subir Imágen (Arrastra y Suelta) del modelo</h2>
         <div
