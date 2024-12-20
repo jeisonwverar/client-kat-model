@@ -1,8 +1,10 @@
 import  { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {createTransformerRequest} from '../api/transformer.js'
+import SaveBotton from "../components/SaveBotton.jsx";
+import DownloadButton from '../components/DownloadButton.jsx'
 const HomeAppPage = () => {
-  
+  const imageTemporal='https://plus.unsplash.com/premium_photo-1669950093661-be9dedbda440?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW9kZWxvJTIwZmVtZW5pbmF8ZW58MHx8MHx8fDA%3D'
   const [images, setImages] = useState([]); // Almacena las imágenes cargadas
   const [resultUrl, setResultUrl] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -51,7 +53,7 @@ const HomeAppPage = () => {
         images[0].file,
         images[1].file
       );
-      console.log(response)
+      //console.log(response)
       if (response.data.result?.[0]?.url) {
         setResultUrl(response.data.result[0].url);
       } else {
@@ -144,19 +146,19 @@ const HomeAppPage = () => {
   > {loading ? "Procesando..." : "Enviar"}
   </button>
     </form>
-    {resultUrl&&(
+    {!resultUrl&&( //codigo original resultUrl quitar cuando termine las pruebas
       <div className="flex flex-col justify-center text-center ">
       <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
       <div className="flex flex-col border-4 border-blue-300 rounded-md max-w-62">
-        <img src={resultUrl} alt="Resultado"  className="h-auto  rounded-lg"/>
-        <a
-            href={resultUrl}
-            download="resultado.png"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-          >
-            Descargar Imagen
-          </a>
-        <button className="bg-blue-300 text-white py-3 px-4 rounded-sm hover:bg-blue-500">guardar</button>
+        <img /* src={resultUrl}  */  src={imageTemporal}
+        alt="Resultado"  
+        className="h-auto  rounded-lg"/>
+         {/* <DownloadButton url={resultUrl} /> */}
+         <DownloadButton url={imageTemporal} />
+
+        <SaveBotton 
+        url={imageTemporal}
+        />
       </div>
     </div>
     )}
