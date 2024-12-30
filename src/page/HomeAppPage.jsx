@@ -9,6 +9,7 @@ const HomeAppPage = () => {
   const [resultUrl, setResultUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorType, setError] = useState('');
+  console.log(resultUrl)
   const onDrop = (acceptedFiles) => {
     const filesWithPreviews = acceptedFiles.map((file) => ({
       file,
@@ -150,10 +151,9 @@ const HomeAppPage = () => {
       <div className="flex flex-col justify-center text-center ">
       <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
       <div className="flex flex-col border-4 border-blue-300 rounded-md max-w-62">
-        <img /* src={resultUrl}  */  src={resultUrl}
+        <img  src={resultUrl}
         alt="Resultado"  
         className="object-cover w-full h-full rounded-lg"/>
-         {/* <DownloadButton url={resultUrl} /> */}
          <DownloadButton url={resultUrl} />
 
         <SaveBotton 
