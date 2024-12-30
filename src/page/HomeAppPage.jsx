@@ -4,7 +4,7 @@ import {createTransformerRequest} from '../api/transformer.js'
 import SaveBotton from "../components/SaveBotton.jsx";
 import DownloadButton from '../components/DownloadButton.jsx'
 const HomeAppPage = () => {
-  const imageTemporal='https://plus.unsplash.com/premium_photo-1669950093661-be9dedbda440?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW9kZWxvJTIwZmVtZW5pbmF8ZW58MHx8MHx8fDA%3D'
+  //const imageTemporal='https://plus.unsplash.com/premium_photo-1669950093661-be9dedbda440?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW9kZWxvJTIwZmVtZW5pbmF8ZW58MHx8MHx8fDA%3D'
   const [images, setImages] = useState([]); // Almacena las imágenes cargadas
   const [resultUrl, setResultUrl] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -146,18 +146,18 @@ const HomeAppPage = () => {
   > {loading ? "Procesando..." : "Enviar"}
   </button>
     </form>
-    {!resultUrl&&( //codigo original resultUrl quitar cuando termine las pruebas
+    {resultUrl&&( //codigo original resultUrl quitar cuando termine las pruebas
       <div className="flex flex-col justify-center text-center ">
       <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
       <div className="flex flex-col border-4 border-blue-300 rounded-md max-w-62">
-        <img /* src={resultUrl}  */  src={imageTemporal}
+        <img /* src={resultUrl}  */  src={resultUrl}
         alt="Resultado"  
-        className="h-auto  rounded-lg"/>
+        className="object-cover w-full h-full rounded-lg"/>
          {/* <DownloadButton url={resultUrl} /> */}
-         <DownloadButton url={imageTemporal} />
+         <DownloadButton url={resultUrl} />
 
         <SaveBotton 
-        url={imageTemporal}
+        url={resultUrl}
         />
       </div>
     </div>
