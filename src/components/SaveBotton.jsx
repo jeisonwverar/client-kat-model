@@ -1,5 +1,6 @@
 import {getAllGaleryRequest} from '../api/galery.js'
 import {createImageRequest} from '../api/image.js'
+
 const SaveBotton = ({url}) => {
 
   const  onclickSave=async()=>{
@@ -9,6 +10,7 @@ const SaveBotton = ({url}) => {
      if(responseGalery.data.lenght===0){
         console.log('falta galeria')
      }
+      console.log(url)
       const data=
      { galeryId:responseGalery.data[0].galery_id, 
         nameImage:`image-${Math.floor(Math.random()*100)}`, 
