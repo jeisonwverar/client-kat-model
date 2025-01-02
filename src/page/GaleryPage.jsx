@@ -18,8 +18,12 @@ const {isAuthenticated}=useStore()
                     name_galery:"general",
                     description:"galeria general"
                 })
+                 }else{
+                    console.log(data.data[0])
                  }
+                 
             }
+
             
             setGalery(data.data)
         } catch (error) {
@@ -42,7 +46,7 @@ const {isAuthenticated}=useStore()
 
             setImages(response.data)
 
-            console.log(images)
+            
             
         } catch (error) {
             if(error.status===404){

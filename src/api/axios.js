@@ -1,6 +1,6 @@
 import axios from 'axios'
 const instance = axios.create({
-    baseURL: 'https://api-kat-model.onrender.com/api/v1',
+    baseURL:'http://localhost:3000/api/v1/',
     withCredentials: true, // Esto asegura que las cookies se envíen en cada solicitud (si es necesario)
   });
   
