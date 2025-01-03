@@ -1,12 +1,13 @@
 import axios from 'axios'
 const instance = axios.create({
-    baseURL:'http://localhost:3000/api/v1/',
+    baseURL:'http://localhost:3000/api/v1',
     withCredentials: true, // Esto asegura que las cookies se envíen en cada solicitud (si es necesario)
   });
   
 // Interceptor para incluir el token automáticamente
 instance.interceptors.request.use(
   (config) => {
+
     // Aquí no es necesario incluir el token manualmente si lo estás manejando en las cookies
     return config;
   },
