@@ -4,7 +4,7 @@ import {createImageRequest} from '../api/image.js'
 const SaveBotton = ({url}) => {
 
   const  onclickSave=async()=>{
-    console.log(url)
+    //console.log(url)
      let responseGalery = await getAllGaleryRequest()
      console.log(responseGalery)
      if(responseGalery.data.lenght===0){
@@ -21,7 +21,7 @@ const SaveBotton = ({url}) => {
     const responseImage= await createImageRequest(data)
     console.log(responseImage)
      if(responseImage.status===201){
-        console.log('imagen guardada')
+        alert('imagen guardada')
      }
 
     }

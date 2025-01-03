@@ -1,3 +1,5 @@
+import { FaDownload } from "react-icons/fa";
+
 const DownloadButton = ({ url, filename = "resultado.png" }) => {
     const handleDownload = async () => {
       try {
@@ -20,9 +22,9 @@ const DownloadButton = ({ url, filename = "resultado.png" }) => {
     return (
       <button
         onClick={handleDownload}
-        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mt-4"
+        className="flex justify-center bg-blue-500 text-white py-4 px-4 rounded hover:bg-blue-600 mt-4"
       >
-        Descargar Imagen
+        <FaDownload />
       </button>
     );
   };

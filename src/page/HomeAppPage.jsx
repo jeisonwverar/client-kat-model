@@ -148,12 +148,12 @@ const HomeAppPage = () => {
   </button>
     </form>
     {resultUrl&&( //codigo original resultUrl quitar cuando termine las pruebas
-      <div className="flex flex-col justify-center text-center ">
+      <div className="flex flex-col justify-center items-center  text-center ">
       <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
-      <div className="flex flex-col border-4 border-blue-300 rounded-md max-w-62">
+      <div className="flex flex-col justify-center border-2 border-blue-300 rounded-md w-auto lg:w-6/12 ">
         <img  src={resultUrl}
         alt="Resultado"  
-        className="object-cover w-full h-full rounded-lg"/>
+        className="object-cover w-full h-full aspect-[2/3] rounded-lg"/>
          <DownloadButton url={resultUrl} />
 
         <SaveBotton 
