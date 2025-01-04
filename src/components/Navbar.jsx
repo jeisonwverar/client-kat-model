@@ -112,6 +112,8 @@ useEffect(()=>{
             :
             <></>
 }
+ {
+    isAuthenticated?
             <li>
               <Link
                 to="/"
@@ -121,6 +123,8 @@ useEffect(()=>{
                 salir
               </Link>
             </li>
+            :<></>
+ }
           </ul>
         </div>
       </div>
