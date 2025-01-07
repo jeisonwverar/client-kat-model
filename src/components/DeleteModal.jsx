@@ -16,7 +16,7 @@ const DeleteModal = ({ status, onConfirm, onCancel }) => {
             </button>
             <div className="p-4 md:p-5 text-center">
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                ¿Estás seguro de que deseas eliminar esta imagen?
+                ¿Estás seguro de que deseas eliminar?
               </h3>
               <button
                 type="button"

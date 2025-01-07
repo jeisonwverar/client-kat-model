@@ -7,7 +7,7 @@ const RegisterPage = () => {
   const { register,handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
   useEffect(()=>{
-    if(isAuthenticated) navigate('/home');
+    if(isAuthenticated) navigate('/login');
     
   },[isAuthenticated])
   const onSubmit=handleSubmit(async(values)=>{

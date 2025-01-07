@@ -24,12 +24,7 @@ import {
       try {
         if (isAuthenticated) {
           data = await getAllGaleryRequest();
-          if (data.data.length === 0) {
-            await createGaleryRequest({
-              name_galery: 'general',
-              description: 'galeria general',
-            });
-          }
+         
           setGalery(data.data);
   
           // Cargar imágenes de la primera galería automáticamente
