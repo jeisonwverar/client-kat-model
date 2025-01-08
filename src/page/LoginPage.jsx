@@ -26,11 +26,11 @@ const LoginPage = () => {
       {
         navigate('/home')
       }
-      console.log(errorUser)
+      //console.log(errorUser)
       if(error==='unauthorized'){
         setErrorUser([])
       }
-      console.log(errorUser)
+      //console.log(errorUser)
   },[isAuthenticated])
 
   return (
