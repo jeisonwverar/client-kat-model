@@ -6,24 +6,31 @@ const RegisterPage = () => {
   const {singUp,error,isAuthenticated} =useStore();
   const { register,handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
-  useEffect(()=>{
-    if(isAuthenticated) navigate('/login');
-    
-  },[isAuthenticated])
+  
   const onSubmit=handleSubmit(async(values)=>{
-    //console.log(values)
-    await singUp(
-      values.name,
-      values.email,
-      values.password
-    )
-    console.log(error,isAuthenticated)
-  })
+    try {
+      // Llamada al registro
+      await singUp(values.name, values.email, values.password);
+      
+      // Redirecciona a /login después de un registro exitoso
+      if (!error) {
+        navigate('/login');
+      }
+    } catch (err) {
+      console.error('Error durante el registro:', err);
+    }
+  
+  });
 
   useEffect(()=>{
-    if(isAuthenticated) navigate('/home')
-  },[isAuthenticated])
+    if (isAuthenticated) {
+      navigate('/login');
+    }
 
+
+  },[isAuthenticated, navigate])
+
+  
   
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -32,6 +39,7 @@ const RegisterPage = () => {
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Regístrate</h2>
+          <div className={`${error?'flex':'hidden'} bg-red-500 text-red-50 justify-center py-1 rounded-sm`}>{error}</div>
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Nombre */}
             <div className="mb-4">
@@ -72,7 +80,7 @@ const RegisterPage = () => {
               <label className="block text-sm font-semibold mb-2">Contraseña</label>
               <input
                 type="password"
-                {...register("password", { required: "La contraseña es obligatoria" })}
+                {...register("password", { required: "La contraseña es obligatoria",minLength:5})}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none ${
                   errors.contraseña ? "border-red-500" : "border-gray-300"
                 }`}

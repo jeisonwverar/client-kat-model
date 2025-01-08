@@ -1,11 +1,12 @@
 import {useForm} from 'react-hook-form'
 import {useNavigate} from 'react-router-dom'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useStore from '../context/UseStore.jsx';
 const LoginPage = () => {
   const {login,error,isAuthenticated} =useStore();
   const {register, handleSubmit,formState:{errors}}=useForm();
   const navigate=useNavigate()
+  const [errorUser,setErrorUser]=useState([])
   
 
 
@@ -22,6 +23,9 @@ const LoginPage = () => {
 
   useEffect(()=>{
     if(isAuthenticated) navigate('/home')
+      if(error==='unauthorized'){
+        setErrorUser([])
+      }
   },[isAuthenticated])
 
   return (
@@ -30,6 +34,7 @@ const LoginPage = () => {
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Seción</h2>
+          <div className={`${errorUser?'flex':'hidden'} bg-red-500 text-red-50 justify-center py-1 rounded-sm`}>{error}</div>
           <form onSubmit={handleSubmit(onSubmit)}>
            
 

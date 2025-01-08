@@ -4,12 +4,14 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 import { useState } from "react";
 import ModalUser from "./ModalUser";
 import DeleteModal from "./DeleteModal";
-
+import Message from "./Message";
 const TableUser = ({ users, setUsers }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
   // Manejar la actualización del usuario
   const handleUpdateUser = async (userId, updatedData) => {
     try {
@@ -20,8 +22,14 @@ const TableUser = ({ users, setUsers }) => {
         )
       );
       setIsUpdateModalOpen(false); // Cierra el modal tras la actualización
+      setIsSuccess(true);
+      setMessage("usuario actualizado exitosamente");
     } catch (error) {
+      setIsSuccess(false);
+      setMessage("error actualizando al usuario");
       console.error("Error actualizando el usuario:", error);
+    }finally{
+      setShowMessage(true);
     }
   };
 
@@ -32,10 +40,15 @@ const TableUser = ({ users, setUsers }) => {
       setUsers((prevUsers) =>
         prevUsers.filter((user) => user.user_id !== selectedUser.user_id)
       );
-      alert("Usuario eliminado correctamente");
-      setIsDeleteModalOpen(false); // Cierra el modal tras la eliminación
+      setIsDeleteModalOpen(false);
+      setIsSuccess(true);
+      setMessage("usuario eliminado exitosamente"); // Cierra el modal tras la eliminación
     } catch (error) {
+      setIsSuccess(false);
+      setMessage("error eliminado el usuario");
       console.error("Error al borrar el usuario:", error);
+    }finally{
+      setShowMessage(true);
     }
   };
 
@@ -87,6 +100,13 @@ const TableUser = ({ users, setUsers }) => {
           </td>
         </tr>
       ))}
+      {showMessage && (
+        <Message
+          success={isSuccess}
+          message={message}
+          onClose={() => setShowMessage(false)} // Cerrar el mensaje
+        />
+      )}
     </tbody>
   );
 };

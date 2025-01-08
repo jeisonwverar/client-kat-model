@@ -9,7 +9,7 @@ const HomeAppPage = () => {
   const [resultUrl, setResultUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorType, setError] = useState('');
-  console.log(resultUrl)
+  //console.log(resultUrl)
   const onDrop = (acceptedFiles) => {
     const filesWithPreviews = acceptedFiles.map((file) => ({
       file,
