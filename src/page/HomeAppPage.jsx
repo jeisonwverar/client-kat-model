@@ -1,6 +1,6 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useDropzone } from "react-dropzone";
-import {createTransformerRequest} from '../api/transformer.js'
+import { createTransformerRequest } from '../api/transformer.js'
 import SaveBotton from "../components/SaveBotton.jsx";
 import DownloadButton from '../components/DownloadButton.jsx'
 const HomeAppPage = () => {
@@ -40,7 +40,7 @@ const HomeAppPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (images.length !== 2) {
       setError("Debes subir 2 imágenes: modelo y prenda.");
       return;
@@ -70,8 +70,8 @@ const HomeAppPage = () => {
 
   return (
     <div className="flex flex-col m-4 gap-4">
-      <div>{}</div>
-    <form  onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <div>{ }</div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <h2 className="text-1xl font-bold text-center">Subir Imágen (Arrastra y Suelta) del modelo</h2>
         <div
           {...getRootProps()}
@@ -100,7 +100,7 @@ const HomeAppPage = () => {
           <input {...getInputProps()} />
           <p>Arrastra tus imágenes aquí o haz clic para seleccionarlas</p>
         </div>
-  
+
         <div className="flex flex-wrap gap-2 justify-center">
           {images.map((image, index) => (
             <div
@@ -141,30 +141,30 @@ const HomeAppPage = () => {
             </div>
           ))}
         </div>
-      
-  <button className="bg-brand-secondary text-white py-3 px-4 rounded-sm"
-  disabled={loading}
-  > {loading ? "Procesando..." : "Enviar"}
-  </button>
-    </form>
-    {resultUrl&&( //codigo original resultUrl quitar cuando termine las pruebas
-      <div className="flex flex-col justify-center items-center  text-center ">
-      <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
-      <div className="flex flex-col justify-center border-2 border-blue-300 rounded-md w-auto lg:w-6/12 ">
-        <img  src={resultUrl}
-        alt="Resultado"  
-        className="object-cover w-full h-full aspect-[2/3] rounded-lg"/>
-         <DownloadButton url={resultUrl} />
 
-        <SaveBotton 
-        url={resultUrl}
-        />
-      </div>
+        <button className="bg-brand-secondary text-white py-3 px-4 rounded-sm"
+          disabled={loading}
+        > {loading ? "Procesando..." : "Enviar"}
+        </button>
+      </form>
+      {resultUrl && ( //codigo original resultUrl quitar cuando termine las pruebas
+        <div className="flex flex-col justify-center items-center  text-center ">
+          <h2 className="text-2xl font-bold mb-6 text-center">Resultado</h2>
+          <div className="flex flex-col justify-center border-2 border-blue-300 rounded-md w-auto lg:w-6/12 ">
+            <img src={resultUrl}
+              alt="Resultado"
+              className="object-cover w-full h-full aspect-[2/3] rounded-lg" />
+            <DownloadButton url={resultUrl} />
+
+            <SaveBotton
+              url={resultUrl}
+            />
+          </div>
+        </div>
+      )}
+
     </div>
-    )}
-          
-    </div>
-      );
+  );
 }
 
 export default HomeAppPage

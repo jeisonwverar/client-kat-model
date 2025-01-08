@@ -36,7 +36,6 @@ const ModalUser = ({ status, setStatus, userData, updateUser }) => {
       // Llamada a la API
       await updateUser(userData.user_id, data);
 
-      
       setStatus(false);
       reset(); // Limpia el formulario
     } catch (error) {

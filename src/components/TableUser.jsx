@@ -28,7 +28,7 @@ const TableUser = ({ users, setUsers }) => {
       setIsSuccess(false);
       setMessage("error actualizando al usuario");
       console.error("Error actualizando el usuario:", error);
-    }finally{
+    } finally {
       setShowMessage(true);
     }
   };
@@ -47,7 +47,7 @@ const TableUser = ({ users, setUsers }) => {
       setIsSuccess(false);
       setMessage("error eliminado el usuario");
       console.error("Error al borrar el usuario:", error);
-    }finally{
+    } finally {
       setShowMessage(true);
     }
   };
