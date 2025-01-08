@@ -39,7 +39,7 @@ const RegisterPage = () => {
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Regístrate</h2>
-          <div className={`${error?'flex':'hidden'} bg-red-500 text-red-50 justify-center py-1 rounded-sm`}>{error}</div>
+          {/* <div className={`${error?'flex':'hidden'} bg-red-500 text-red-50 justify-center py-1 rounded-sm`}>{error}</div> */}
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Nombre */}
             <div className="mb-4">

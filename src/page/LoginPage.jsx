@@ -22,10 +22,15 @@ const LoginPage = () => {
   })
 
   useEffect(()=>{
-    if(isAuthenticated) navigate('/home')
+    if(isAuthenticated)
+      {
+        navigate('/home')
+      }
+      console.log(errorUser)
       if(error==='unauthorized'){
         setErrorUser([])
       }
+      console.log(errorUser)
   },[isAuthenticated])
 
   return (
@@ -34,7 +39,7 @@ const LoginPage = () => {
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Seción</h2>
-          <div className={`${errorUser?'flex':'hidden'} bg-red-500 text-red-50 justify-center py-1 rounded-sm`}>{error}</div>
+          {/* <div className={`${errorUser?'flex':'hidden py-0'} bg-red-500 text-red-50 justify-center py-1 rounded-sm`}>{error}</div> */}
           <form onSubmit={handleSubmit(onSubmit)}>
            
 
