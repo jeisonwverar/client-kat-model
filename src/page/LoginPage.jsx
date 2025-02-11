@@ -38,7 +38,7 @@ const LoginPage = () => {
       <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg overflow-hidden w-11/12 md:w-3/4 lg:w-2/3">
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-8">
-          <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Seción</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
           {/* <div className={`${errorUser?'flex':'hidden py-0'} bg-red-500 text-red-50 justify-center py-1 rounded-sm`}>{error}</div> */}
           <form onSubmit={handleSubmit(onSubmit)}>
            
